@@ -1,0 +1,130 @@
+﻿@page "/Usuarios/Nuevo"
+
+<AuthorizeView Roles="Administrador">
+    <Authorized Context="AuthenticationState">
+        <h3>Nuevo Usuario</h3>
+        <br />
+
+        <EditForm Model="@user">
+            <DataAnnotationsValidator />
+
+        <div class="row">
+                    <div class="col">
+                        <div class="col-sm-10">
+
+                            @if (user.Foto != null)
+                            {
+                                <img src="data:image;base64,@Convert.ToBase64String(user.Foto)" width="250" height="250" />
+                            }
+                            else
+                            {
+                                <img src='imgUrl' width="250" height="250" />
+                            }
+                        </div>
+                    </div>
+        </div>
+        <div class="row">
+                <div class="col">
+                    <label for="IdEmpleado" class="col-sm-2 col-form-label">
+                        IdEmpleado
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="IdEmpleado" class="form-control" @bind-Value="user.IdEmpleado" />
+                        <ValidationMessage For="@(() => user.IdEmpleado)" />
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="Nombre" class="col-sm-2 col-form-label">
+                        Nombre
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="Nombre" class="form-control" @bind-Value="user.Nombre" />
+                        <ValidationMessage For="@(() => user.Nombre)" />
+                    </div>
+                </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="Contrasena" class="col-sm-2 col-form-label">
+                            Contraseña
+                        </label>
+                        <div class="col-sm-10">
+                            <InputText id="Contrasena" type="password" class="form-control" @bind-Value="user.Contrasena" />
+                            <ValidationMessage For="@(() => user.Contrasena)" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Correo" class="col-sm-2 col-form-label">
+                            Correo
+                        </label>
+                        <div class="col-sm-10">
+                            <InputText id="Correo" class="form-control" @bind-Value="user.Correo" />
+                            <ValidationMessage For="@(() => user.Correo)" />
+                        </div>
+                    </div>
+                    <div class="col">
+
+                     <label for="Correo" class="col-sm-2 col-form-label">
+                            Rol
+                        </label
+
+                        <InputSelect class="form-control" @bind-Value="user.Rol">
+                            @foreach (var rol in Enum.GetValues(typeof(Roles)))
+                            {
+                                <option value="@rol">@rol</option>
+                            }
+                        </InputSelect>
+                   
+                </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="Celular" class="col-sm-2 col-form-label">
+                            Celular
+                        </label>
+                        <div class="col-sm-10">
+                            <InputText id="Celular" class="form-control" @bind-Value="user.Celular" />
+                            <ValidationMessage For="@(() => user.Celular)" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Direccion" class="col-sm-2 col-form-label">
+                            Direccion
+                        </label>
+                        <div class="col-sm-10">
+                            <InputText id="Direccion" class="form-control" @bind-Value="user.Direccion" />
+                            <ValidationMessage For="@(() => user.Direccion)" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="EstaActivo" class="col-sm-2 col-form-label">
+                            Esta Activo
+                        </label>
+                        <div class="col-sm-10">
+                            <InputCheckbox @bind-Value="user.EstaActivo" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="Foto" class="col-sm-2 col-form-label">
+                            Foto
+                        </label>
+                    <InputFile OnChange="@SeleccionarImagen"></InputFile>
+                    </div>
+                   
+                </div>
+
+                <div class="form-group row">
+                    <p>
+                        <input type="submit" class="btn btn-primary" value="Guardar" @onclick="Guardar" />
+                        <input type="submit" class="btn btn-danger" value="Cancelar" @onclick="Cancelar" />
+                    </p>
+                </div>
+          
+        </EditForm>
+    </Authorized>
+    <NotAuthorized>
+        <h3>No tiene permisos para acceder a esta ruta</h3>
+    </NotAuthorized>
+</AuthorizeView>

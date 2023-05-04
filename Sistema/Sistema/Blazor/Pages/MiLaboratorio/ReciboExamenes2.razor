@@ -1,0 +1,12 @@
+﻿@page "/ReciboExamenes2/{IdExamen}"
+
+<AuthorizeView Roles="Administrador">
+    <Authorized Context="AuthenticationState">
+
+    </Authorized>
+
+    <NotAuthorized>
+        <h3>No tiene permisos para acceder a esta ruta</h3>
+    </NotAuthorized>
+
+</AuthorizeView>

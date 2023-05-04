@@ -1,0 +1,196 @@
+﻿@page "/Factura"
+@using Modelos;
+
+<AuthorizeView Roles="Administrador">
+    <Authorized Context="AuthenticationState">
+        <EditForm Model="@establecimiento">
+            <DataAnnotationsValidator />
+            <div align="center">
+            <H4>DATOS DE LA EMPRESA</H4>
+            </div>
+            <div class="row">
+  
+                <div class="col">
+                    <label for="NombreEstablecimiento" class="col-sm-2 col-form-label">
+                        Establecimiento
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="NombreEstablecimiento" class="form-control" @bind-Value="establecimiento.NombreEstablecimiento" readonly />
+                        <ValidationMessage For="@(() => establecimiento.NombreEstablecimiento)" />
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="Direccion" class="col-sm-2 col-form-label">
+                        Direccion
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="Direccion" class="form-control" @bind-Value="establecimiento.Direccion" readonly />
+                        <ValidationMessage For="@(() => establecimiento.Direccion)" />
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="Correo" class="col-sm-2 col-form-label">
+                        Correo
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="Correo" class="form-control" @bind-Value="establecimiento.Correo" readonly />
+                        <ValidationMessage For="@(() => establecimiento.Correo)" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="Telefono" class="col-sm-2 col-form-label">
+                        Telefono
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="Telefono" class="form-control" @bind-Value="establecimiento.Telefono" readonly />
+                        <ValidationMessage For="@(() => establecimiento.Telefono)" />
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="RTN" class="col-sm-2 col-form-label">
+                        RTN
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="RTN" class="form-control" @bind-Value="establecimiento.RTN" readonly />
+                        <ValidationMessage For="@(() => establecimiento.RTN)" />
+                    </div>
+                </div>
+            </div>
+        </EditForm>
+        <br /><br />
+        <div align="center"> <H4>DATOS DEL CLIENTE</H4> </div>
+         <EditForm Model="@cliente">
+            <DataAnnotationsValidator />
+            <div class="row">
+  
+                <div class="col">
+                    <label for="IdentidadCliente" class="col-sm-2 col-form-label">
+                        Identidad Cliente
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="IdentidadCliente" class="form-control" @bind-Value="cliente.IdentidadCliente"  />
+                       
+                        <input type="submit" class="btn btn-dark" value="Buscar" @onclick="@Buscar" />
+                    </div>
+                    
+                </div>
+
+                <div class="col">
+                    <label for="NombreCliente" class="col-sm-2 col-form-label">
+                        Nombre Cliente
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="NombreCliente" class="form-control" @bind-Value="cliente.NombreCliente" readonly />
+                       
+                    </div>
+                </div>
+            </div>
+        </EditForm>
+        <div align="center"><H4>DATOS DE FACTURA</H4> </div>
+       		<EditForm Model="@factura">
+            <div class="rz-card card" style="width:100%">
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <b>Código Producto:</b>
+                        <InputText id="Codigo" class="form-control" @bind-value="codigoProducto" ValueExpression="@( () => @codigoProducto)" />
+                    </div>
+
+                    <div class="col-sm-1">
+                        <b>Buscar:</b>
+                        <input type="submit" class="btn btn-primary" value="Buscar" @onclick="@BuscarProducto" />
+                        
+                    </div>
+
+                    <div class="col-sm-6">
+                        <b>Descripción:</b>
+                      
+                            <InputText readonly id="Descripcion" class="form-control"  @bind-Value="@medicamento.Nombre" />
+                            <InputText readonly id="Descripcion2" class="form-control" @bind-Value="@examen.TipoExamen" />
+                    
+                    </div>
+
+                    <div class="col-sm-2">
+                        <b>Cantidad:</b>
+                        <InputNumber id="Cantidad" class="form-control" @bind-Value="@cantidad" />
+                    </div>
+
+                    <div class="col-sm-1">
+                        <b>Agregar:</b>
+                        <input type="submit" class="btn btn-primary" value="Agregar" @onclick="@AgregarProducto" />
+                    </div>
+                </div>
+            </div>
+            <br />
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th></th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (var det in listaDetalleFactura)
+                    {
+                        <tr>
+
+                           <td>@det.idMedicamento</td>                                    
+                            <td>@det.IdExamen</td>
+                            <td>@det.Descripcion</td>
+                            <td>@det.Cantidad</td>
+                            <td>@det.Precio</td>
+                            <td>@det.Total</td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            <br />
+
+            <div align="right">
+                <div class="form-group row">
+					<label for="SubTotal" class="col-sm-10 col-form-label">SubTotal</label>
+					<div class="col-md-2">
+						<InputNumber readonly id="SubTotal" TValue="Double" class="form-control" @bind-value="factura.SubTotal" ValueExpression="@( () => factura.SubTotal )"/>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="Descuento" class="col-sm-10 col-form-label">Descuento</label>
+					<div class="col-md-2">
+						<InputNumber id="Descuento" TValue="Double" class="form-control" @bind-value="factura.Descuento" ValueExpression="@( () => factura.Descuento )"/>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="ISV" class="col-sm-10 col-form-label">Impuesto</label>
+					<div class="col-md-2">
+						<InputNumber readonly id="ISV" TValue="Double" class="form-control" @bind-value="factura.ISV" ValueExpression="@( () => factura.ISV )"/>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="Total" class="col-sm-10 col-form-label">Total</label>
+					<div class="col-md-2">
+						<InputNumber readonly id="Total" TValue="Double" class="form-control" @bind-value="factura.Total" ValueExpression="@( () => factura.Total )"/>
+					</div>
+            </div>
+            </div>
+
+            <div align="right">
+                <input type="submit" class="btn btn-primary" value="Guardar Factura" @onclick="Guardar" />
+            </div>
+		</EditForm>
+    </Authorized>
+    <NotAuthorized>
+        <h3>No tiene permisos para acceder a esta ruta</h3>
+    </NotAuthorized>
+</AuthorizeView>

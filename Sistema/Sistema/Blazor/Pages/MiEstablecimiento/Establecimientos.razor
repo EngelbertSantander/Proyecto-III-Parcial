@@ -1,0 +1,46 @@
+﻿@page "/Establecimiento"
+@using Modelos;
+
+<AuthorizeView Roles="Administrador">
+    <Authorized Context="AuthenticationState">
+        <h2>Datos del establecimiento</h2>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr class="table-dark">
+                        <th>RTN</th>
+                        <th>Id Empleado Jefe</th>
+                        <th>Nombre Jefe</th>
+                        <th>Nombre Establecimiento</th>
+                        <th>Direccion</th>
+                        <th>Correo</th>
+                        <th>Telefono</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Establecimiento establecimiento in lista)
+                    {
+                        <tr>
+                            <td>@establecimiento.RTN</td>
+                            <td>@establecimiento.IdEmpleadoJefe</td>
+                            <td>@establecimiento.NombreJefe</td>
+                            <td>@establecimiento.NombreEstablecimiento</td>
+                            <td>@establecimiento.Direccion</td>
+                            <td>@establecimiento.Correo</td>
+                            <td>@establecimiento.Telefono</td>
+                            
+                            <th>
+                            <a class="btn btn-outline-primary" href="@($"/Establecimiento/Editar/{establecimiento.RTN}")">Editar</a>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        
+    </Authorized>
+    <NotAuthorized>
+        <h3>No tiene permisos para acceder a esta ruta</h3>
+    </NotAuthorized>
+</AuthorizeView>

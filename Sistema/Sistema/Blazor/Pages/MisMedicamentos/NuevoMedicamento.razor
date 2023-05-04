@@ -1,0 +1,167 @@
+﻿@page "/Medicamentos/Nuevo"
+
+<AuthorizeView Roles="Administrador">
+    <Authorized Context="AuthenticationState">
+        <h3>Nuevo Medicamento</h3>
+        <br />
+        <EditForm Model="@medicamento">
+            <DataAnnotationsValidator />
+
+            <div class="row">
+                <div class="col">
+                    <div class="col-sm-10">
+
+                        @if (medicamento.Imagen != null)
+                        {
+                            <img src="data:image;base64,@Convert.ToBase64String(medicamento.Imagen)" width="250" height="250" />
+                        }
+                        else
+                        {
+                            <img src='imgUrl' width="250" height="250" />
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                    <div class="col">
+                    <label for="idMedicamento" class="col-sm-2 col-form-label">
+                            idMedicamento
+                        </label>
+                        <div class="col-sm-10">
+                        <InputText id="idMedicamento" type="text" class="form-control" @bind-Value="medicamento.idMedicamento" />
+                        <ValidationMessage For="@(() =>medicamento.idMedicamento)" />
+                        </div>
+                    </div>
+                <div class="col">
+                    <label for="Nombre" class="col-sm-2 col-form-label">
+                        Nombre
+                    </label>
+                    <div class="col-sm-10">
+                        
+                        <InputText id="Nombre" type="text" class="form-control" @bind-Value="medicamento.Nombre" />
+                      
+                        <ValidationMessage For="@(() =>medicamento.Nombre)" />
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="Mg" class="col-sm-2 col-form-label">
+                        Mg
+                    </label>
+                    <div class="col-sm-10">
+                        <InputNumber id="Cantidad" class="form-control" @bind-Value="@medicamento.Mg" />
+                        <ValidationMessage For="@(() => medicamento.Mg)" />
+                    </div>
+                </div>
+                <div class="col">
+                 <label for="V.A" class="col-sm-2 col-form-label">
+                            Administracion
+                        </label
+
+                        <InputSelect class="form-control" @bind-Value="medicamento.ViaDeAdministracion">
+                            @foreach (var ViaDeAdministracion in Enum.GetValues(typeof(Vias)))
+                            {
+                                <option value="@ViaDeAdministracion">@ViaDeAdministracion</option>
+                            }
+                        </InputSelect>
+
+                        </div>
+            </div>
+
+             <div class="row">
+                  <div class="col">
+                    <label for="ComponenteActivo" class="col-sm-2 col-form-label">
+                        ComponenteActivo
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="ComponenteActivo" type="text" class="form-control" @bind-Value="medicamento.ComponenteActivo" />
+                        <ValidationMessage For="@(() =>medicamento.ComponenteActivo)" />
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="Laboratorio" class="col-sm-2 col-form-label">
+                        Laboratorio
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="Laboratorio" type="text" class="form-control" @bind-Value="medicamento.Laboratorio" />
+                        <ValidationMessage For="@(() =>medicamento.Laboratorio)" />
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="FechaCaducidad" class="col-sm-2 col-form-label">
+                        Fecha Caducidad
+                    </label>
+                    
+                    <div class="col-sm-10">
+                         <input type="date" name="FechaCaducidad" @bind="medicamento.FechaDeCaducidad"/>
+                         <ValidationMessage For="@(() =>medicamento.FechaDeCaducidad)" />
+                          </div>
+                </div>
+
+                 <div class="col">
+                        <label for="RequierePrescripcion" class="col-sm-2 col-form-label">
+                            Requiere Prescripcion
+                        </label>
+                        <div class="col-sm-10">
+                            <InputCheckbox @bind-Value="medicamento.RequierePrescripcion" />
+                        </div>
+                    </div>
+
+                 </div>
+
+                  <div class="row">
+                      <div class="col">
+                    <label for="Indicaciones" class="col-sm-2 col-form-label">
+                        Indicaciones
+                    </label>
+                    <div class="col-sm-10">
+                        <InputText id="Indicaciones" type="text" class="form-control" @bind-Value="medicamento.Indicaciones" />
+                        <ValidationMessage For="@(() =>medicamento.Indicaciones)" />
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="Precio" class="col-sm-2 col-form-label">
+                        Precio
+                    </label>
+                    <div class="col-sm-10">
+                        <InputNumber id="Precio" class="form-control" @bind-Value="@medicamento.Precio" />
+                        <ValidationMessage For="@(() => medicamento.Precio)" />
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label for="Existencia" class="col-sm-2 col-form-label">
+                        Existencia
+                    </label>
+                    <div class="col-sm-10">
+                        <InputNumber id="Existencia" class="form-control" @bind-Value="@medicamento.Existencia" />
+                        <ValidationMessage For="@(() => medicamento.Existencia)" />
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="col-sm-10">
+                        <label for="Foto" class="col-sm-2 col-form-label">
+                            Foto
+                        </label>
+                    <InputFile OnChange="@SeleccionarImagen"></InputFile>
+                    </div>
+                    </div>
+                      </div>
+                      <br/<br/>
+                      <div class="form-group row">
+                    <p>
+                        <input type="submit" class="btn btn-primary" value="Guardar" @onclick="Guardar" />
+                        <input type="submit" class="btn btn-danger" value="Cancelar" @onclick="Cancelar" />
+                    </p>
+                </div>
+             </EditForm>
+    </Authorized>
+    <NotAuthorized>
+        <h3>No tiene permisos para acceder a esta ruta</h3>
+    </NotAuthorized>
+</AuthorizeView>
+

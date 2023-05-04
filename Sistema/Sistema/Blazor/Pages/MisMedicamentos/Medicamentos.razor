@@ -1,0 +1,88 @@
+﻿@page "/Medicamentos"
+@using Modelos;
+
+<AuthorizeView Roles="Administrador">
+    <Authorized Context="AuthenticationState">
+        <h2>Lista de Medicamentos</h2>
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <a href="/Medicamentos/Nuevo" class="btn btn-primary m-1">Nuevo</a>
+            </div>
+        </div>
+
+        @if (lista == null)
+        {
+            <p>No existen medicamentos en el sistema</p>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr class="table-dark">
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Mg</th>
+                        <th>Via de admin.</th>
+                        <th>Componente Activo</th>
+                        <th>Laboratorio</th>
+                        <th>Fecha Caducidad</th>
+                        <th>Requiere prescripcion</th>
+                        <th>Imagen</th>
+                        <th>Indicaciones</th>
+                        <th>Precio</th>
+                        <th>Existencia</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Medicamento medicamento in lista)
+                    {
+                        <tr>
+                            <td>@medicamento.idMedicamento</td>
+                            <td>@medicamento.Nombre</td>
+                            <td>@medicamento.Mg</td>
+                            <td>@medicamento.ViaDeAdministracion</td>
+                            <td>@medicamento.ComponenteActivo</td>
+                            <td>@medicamento.Laboratorio</td>
+                            <td>@medicamento.FechaDeCaducidad</td>
+                            @if (medicamento.RequierePrescripcion)
+                            {
+                                <td>
+                                    <span class="oi oi-circle-check" style="color:green;"></span>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <span class="oi oi-circle-x" style="color:red;"></span>
+                                </td>
+                            }
+                            @if (medicamento.Imagen != null)
+                            {
+                                <th>
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(medicamento.Imagen)" width="40" height="40" />
+                                </th>
+                            }
+                            else
+                            {
+                                <th></th>
+                            }
+                            <td>@medicamento.Indicaciones</td>
+                            <td>@medicamento.Precio</td>
+                            <td>@medicamento.Existencia</td>
+                          
+                            <th>
+                                <a class="btn btn-outline-primary" href="@($"/Medicamentos/Editar/{medicamento.idMedicamento}")">Editar</a>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <h3>No tiene permisos para acceder a esta ruta</h3>
+    </NotAuthorized>
+</AuthorizeView>

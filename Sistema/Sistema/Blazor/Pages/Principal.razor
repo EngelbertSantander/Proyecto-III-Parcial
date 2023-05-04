@@ -1,0 +1,89 @@
+﻿
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='https://unpkg.com/bulma@0.9.1/css/bulma.min.css'>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+</head>
+
+<AuthorizeView Roles="Administrador">
+    <Authorized Context="AuthenticationState">
+        <h2>Bienvenido Administrador</h2>
+
+        <body>
+            <section id='app' class='hero is-link is-fullheight'>
+                <div class='hero-body'>
+                    <div class='container'>
+                        <div class='columns has-text-centered'>
+                            <div class='column'>
+                                <h1 style='font-size: 2.5rem'>Termómetro</h1>
+                                <i class='fa fa-thermometer-half' style='font-size: 4rem;'></i>
+                            </div>
+                        </div>
+                        <div class='columns'>
+                            <div class='column has-text-centered'>
+                                <h2 class='is-size-4 has-text-warning'>Temperatura</h2>
+                                <h2 class='is-size-1'>20.5 °C</h2>
+                            </div>
+                            <div class='column has-text-centered'>
+                                <h2 class='is-size-4 has-text-warning'>Humedad</h2>
+                                <h2 class='is-size-1'>30.87 %</h2>
+                            </div>
+                        </div>
+                        <div class='columns'>
+                            <div class='column'>
+                                <p>Última lectura: Hace <strong class='has-text-white'>5</strong> segundo(s)</p>
+                                <p class='is-size-5'>
+                                    <i class='fa fa-code'></i> con <i class='fa fa-heart has-text-danger'></i>
+                                    por <a target='_blank' class='has-text-warning'
+                                           href='https://parzibyte.me/blog'>Parzibyte</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </body>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Usuario">
+    <Authorized Context="AuthenticationState">
+        <h2>Bienvenido Usuario</h2>
+
+        <body>
+            <section id='app' class='hero is-link is-fullheight'>
+                <div class='hero-body'>
+                    <div class='container'>
+                        <div class='columns has-text-centered'>
+                            <div class='column'>
+                                <h1 style='font-size: 2.5rem'>Termómetro</h1>
+                                <i class='fa fa-thermometer-half' style='font-size: 4rem;'></i>
+                            </div>
+                        </div>
+                        <div class='columns'>
+                            <div class='column has-text-centered'>
+                                <h2 class='is-size-4 has-text-warning'>Temperatura</h2>
+                                <h2 class='is-size-1'>20.5 °C</h2>
+                            </div>
+                            <div class='column has-text-centered'>
+                                <h2 class='is-size-4 has-text-warning'>Humedad</h2>
+                                <h2 class='is-size-1'>30.87 %</h2>
+                            </div>
+                        </div>
+                        <div class='columns'>
+                            <div class='column'>
+                                <p>Última lectura: Hace <strong class='has-text-white'>5</strong> segundo(s)</p>
+                                <p class='is-size-5'>
+                                    <i class='fa fa-code'></i> con <i class='fa fa-heart has-text-danger'></i>
+                                    por <a target='_blank' class='has-text-warning'
+                                           href='https://parzibyte.me/blog'>Parzibyte</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </body>
+    </Authorized>
+</AuthorizeView>

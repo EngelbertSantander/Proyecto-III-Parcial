@@ -1,0 +1,77 @@
+﻿
+<!--
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <div align="center"><img src="/css/Img/Logo.jpeg" height="40px" width="40px"></div>
+       
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <AuthorizeView>
+               <Authorized>
+                    <span class="ml-md-auto">
+                    <div align="center">
+
+                        <img src=/css/Img/miPerfil.jpg style="width:140px;height:130px; border-radius:160px; border:6px solid #12EB25;" />
+                    
+                    </div>
+                    <h4>Usuario Conectado:<br />@context.User.Claims.First().Value</h4>
+                    <div align="center"><a href="/Salir" class="btn btn-danger">Salir</a></div>
+                    </span>
+               </Authorized>
+               <NotAuthorized>
+                <div align="center"> <a href="Ingreso" width=auto; class="btn btn-primary btn-lg">Iniciar Sesión</a></div>
+                
+               </NotAuthorized>
+               
+            </AuthorizeView>
+
+        <AuthorizeView Roles="Administrador, Usuario">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Inicio
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Administrador">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Usuarios">
+                        <span class="oi oi-person" aria-hidden="true"></span> Usuarios
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Administrador">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Productos">
+                        <span class="oi oi-laptop" aria-hidden="true"></span> Productos
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+
+    </nav>
+</div>
+-->
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
